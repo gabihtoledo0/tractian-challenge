@@ -16,5 +16,11 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src/**/*", "src/**/*.ts", "src/**/*.js", "test/**/*.ts", "src/custom.d.ts"]
+  "include": [
+    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "test/**/*.ts",
+    "src/custom.d.ts"
+  ]
 }

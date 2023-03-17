@@ -1,10 +1,10 @@
 * {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .hoverItem:hover {
-  background-color: #58a9ff !important
+  background-color: #58a9ff !important;
 }
 
 .filter-img {
