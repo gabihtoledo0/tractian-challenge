@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hoverItem:hover {
+  background-color: #58a9ff !important
+}
+
+.filter-img {
+  filter: brightness(0) invert(1);
+}
