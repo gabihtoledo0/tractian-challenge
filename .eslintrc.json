@@ -28,10 +28,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "semi": 0,
-    "import/no-extraneous-dependencies": [
-      "error",
-      { "projectDependencies": false }
-    ],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "import/prefer-default-export": "off"
   },
   "settings": {

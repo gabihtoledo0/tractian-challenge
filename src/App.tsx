@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import DetailsAssets from "./pages/DetailsAssets"
+import Home from "./pages/Home/Home"
+import DetailsAssets from "./pages/DetailsAssets/DetailsAssets"
 
 function AppRouter() {
   return (

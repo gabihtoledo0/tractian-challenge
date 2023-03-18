@@ -1,30 +1,6 @@
 import { useState, useEffect } from "react"
 import axios, { AxiosResponse } from "axios"
-
-type AssetsProps = {
-  assignedUserIds: number[]
-  companyId: string
-  healthHistory: {
-    status: string
-    timestamp: string
-  }[]
-  healthscore: string
-  id: string
-  image: string
-  metrics: {
-    lastUptimeAt: string
-    totalCollectsUptime: number
-    totalUptime: number
-  }
-  model: string
-  name: string
-  sensors: string[]
-  specifications: {
-    maxTemp: number
-  }
-  status: string
-  unitId: number
-}
+import { AssetsProps } from "../../utils/types"
 
 function Assets() {
   const [assets, setAssets] = useState<AssetsProps[]>()

@@ -1,34 +1,76 @@
-import { Row, Col, Button, Table } from "antd"
-import assets from "../../images/assets.svg"
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-nested-ternary */
+import { useEffect, useState } from "react"
+import { Row, Col, Button, Table, Tag, Space } from "antd"
+import { IoBuild } from "react-icons/io5"
+import { AiFillAlert } from "react-icons/ai"
+import { BsFillSignStopFill } from "react-icons/bs"
+import { RxCountdownTimer } from "react-icons/rx"
 import type { ColumnsType } from "antd/es/table"
+import { useNavigate } from "react-router-dom"
+import axios, { AxiosResponse } from "axios"
 import { colors } from "../../utils/colors"
-import { useHistory } from "react-router-dom"
-
-interface DataType {
-  key: string
-  id: number
-  companyId: number
-  healthscore: number
-  model: string
-  name: string
-  status: string
-}
+import { AssetsProps } from "../../utils/types"
 
 function Assets() {
-  let history = useHistory()
+  const navigate = useNavigate()
 
-  const columns: ColumnsType<DataType> = [
+  const scoreColor = (score: number) =>
+    score > 75 ? "green" : score >= 40 ? "warning" : "red"
+
+  const columns: ColumnsType<AssetsProps> = [
     {
-      title: "Empresa",
-      dataIndex: "companyId",
-      key: "companyId",
-      render: (id: number) => id === 1 && "The Test Company",
+      title: "Nome",
+      dataIndex: "name",
+      key: "name",
+      render: (name: string) => <p style={{ fontWeight: "300" }}>{name}</p>,
     },
     {
       title: "Modelo",
       dataIndex: "model",
       key: "model",
-      render: (id: number) => id === 1 && "The Test Company",
+      render: (model: string) => <p style={{ fontWeight: "300" }}>{model}</p>,
+    },
+    {
+      title: "Empresa",
+      dataIndex: "companyId",
+      key: "companyId",
+      render: (id: number) =>
+        id === 1 && <p style={{ fontWeight: "300" }}>The Test Company</p>,
+    },
+    {
+      title: "Health Score",
+      dataIndex: "healthscore",
+      key: "healthscore",
+      render: (score: number) => (
+        <Tag
+          // eslint-disable-next-line no-nested-ternary
+          color={scoreColor(score)}
+          key={score}
+        >
+          <p style={{ fontWeight: "400" }}>{score}</p>
+        </Tag>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status: string) => (
+        <Space>
+          <p style={{ fontWeight: "300" }}>{status}</p>
+          <div />
+          {status === "inAlert" ? (
+            <AiFillAlert size={20} color="orange" />
+          ) : status === "inDowntime" ? (
+            <RxCountdownTimer size={20} />
+          ) : status === "inOperation" ? (
+            <IoBuild size={20} color="#FFD700	" />
+          ) : (
+            <BsFillSignStopFill size={20} color="red" />
+          )}
+        </Space>
+      ),
     },
     {
       title: "",
@@ -41,7 +83,7 @@ function Assets() {
             width: "fit-content",
           }}
           size="large"
-          onClick={() => history.push(`/ativos/${record.id}`)}
+          onClick={() => navigate(`/ativos/${record.id}`)}
         >
           Detalhes
         </Button>
@@ -49,9 +91,19 @@ function Assets() {
     },
   ]
 
+  const [assets, setAssets] = useState<AssetsProps[]>()
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL_ASSETS}`)
+      .then((response: AxiosResponse) => {
+        setAssets(response.data)
+      })
+  }, [])
+
   return (
     <Row style={{ backgroundColor: colors.backgroundDefault, padding: "32px" }}>
-      <Col span={12} style={{ alignItems: "center" }}>
+      <Col span={8} style={{ alignItems: "center" }}>
         <div
           style={{
             display: "flex",
@@ -78,23 +130,21 @@ function Assets() {
           >
             Veja com mais detalhes as características dos ativos
           </h2>
-          <div style={{ margin: "12px" }} />
-          <Button
-            type="primary"
-            style={{
-              backgroundColor: colors.buttonPrimary,
-              width: "fit-content",
-            }}
-            size="large"
-          >
-            Detalhes
-          </Button>
         </div>
       </Col>
 
-      <Col span={12} style={{ display: "flex", justifyContent: "center" }}>
-        <Table columns={columns} dataSource={data} />
-        <img src={assets} alt="ativos" height={250} />
+      <Col span={16} style={{ display: "flex", justifyContent: "center" }}>
+        <Table
+          columns={columns}
+          dataSource={assets}
+          loading={assets === undefined}
+          pagination={{
+            defaultCurrent: 1,
+            total: assets?.length,
+            defaultPageSize: 4,
+          }}
+          bordered
+        />
       </Col>
     </Row>
   )

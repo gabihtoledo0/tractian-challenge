@@ -5,6 +5,6 @@ export const colors = {
   textSecondary: "#fff",
   backgroundPrimary: "rgba(30,58,138,1)",
   backgroundSecondary: "rgba(37,99,235,1)",
-  backgroundDefault: "#fff",
+  backgroundDefault: "#eff6fe",
   buttonPrimary: "#16A34A",
 }

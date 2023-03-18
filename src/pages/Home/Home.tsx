@@ -1,7 +1,7 @@
 import { Layout, Menu } from "antd"
-import logoHeader from "../images/tractian-logo.png"
-import Assets from "../components/sections/Assets"
-import { colors } from "../utils/colors"
+import logoHeader from "../../images/tractian-logo.png"
+import Assets from "../../components/sections/Assets"
+import { colors } from "../../utils/colors"
 import "./Home.css"
 
 function Home() {
