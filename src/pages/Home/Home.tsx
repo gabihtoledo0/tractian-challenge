@@ -1,39 +1,15 @@
 import { Layout, Menu } from "antd"
-import logoHeader from "../../images/tractian-logo.png"
-import Assets from "../../components/sections/Assets"
+import Assets from "../../components/Sections/Assets"
 import { colors } from "../../utils/colors"
+import HeaderComponent from "../../components/Header/Header"
 import "./Home.css"
 
 function Home() {
-  const { Header, Content, Footer } = Layout
+  const { Content, Footer } = Layout
 
   return (
     <Layout>
-      <Header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1,
-          width: "100%",
-          background: `linear-gradient(90deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 35%)`,
-        }}
-      >
-        <div
-          style={{
-            float: "left",
-            display: "flex",
-            height: "100%",
-            alignItems: "center",
-            marginRight: "28px",
-          }}
-        >
-          <img
-            src={logoHeader}
-            alt="logo-tractian"
-            height={25}
-            className="filter-img"
-          />
-        </div>
+      <HeaderComponent>
         <Menu
           style={{ background: "transparent" }}
           mode="horizontal"
@@ -49,7 +25,7 @@ function Home() {
             <span style={{ color: colors.textSecondary }}>Usuários</span>
           </Menu.Item>
         </Menu>
-      </Header>
+      </HeaderComponent>
 
       <Content>
         <Assets />

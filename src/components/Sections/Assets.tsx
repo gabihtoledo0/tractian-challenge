@@ -10,7 +10,7 @@ import type { ColumnsType } from "antd/es/table"
 import { useNavigate } from "react-router-dom"
 import axios, { AxiosResponse } from "axios"
 import { colors } from "../../utils/colors"
-import { AssetsProps } from "../../utils/types"
+import { AssetProps } from "../../utils/types"
 
 function Assets() {
   const navigate = useNavigate()
@@ -18,25 +18,22 @@ function Assets() {
   const scoreColor = (score: number) =>
     score > 75 ? "green" : score >= 40 ? "warning" : "red"
 
-  const columns: ColumnsType<AssetsProps> = [
+  const columns: ColumnsType<AssetProps> = [
     {
       title: "Nome",
       dataIndex: "name",
       key: "name",
-      render: (name: string) => <p style={{ fontWeight: "300" }}>{name}</p>,
     },
     {
       title: "Modelo",
       dataIndex: "model",
       key: "model",
-      render: (model: string) => <p style={{ fontWeight: "300" }}>{model}</p>,
     },
     {
       title: "Empresa",
       dataIndex: "companyId",
       key: "companyId",
-      render: (id: number) =>
-        id === 1 && <p style={{ fontWeight: "300" }}>The Test Company</p>,
+      render: (id: number) => id === 1 && <p>The Test Company</p>,
     },
     {
       title: "Health Score",
@@ -58,7 +55,7 @@ function Assets() {
       key: "status",
       render: (status: string) => (
         <Space>
-          <p style={{ fontWeight: "300" }}>{status}</p>
+          <p>{status}</p>
           <div />
           {status === "inAlert" ? (
             <AiFillAlert size={20} color="orange" />
@@ -91,7 +88,7 @@ function Assets() {
     },
   ]
 
-  const [assets, setAssets] = useState<AssetsProps[]>()
+  const [assets, setAssets] = useState<AssetProps[]>()
 
   useEffect(() => {
     axios
@@ -124,7 +121,6 @@ function Assets() {
           <h2
             style={{
               fontSize: "24px",
-              fontWeight: "300",
               color: colors.textPrimary,
             }}
           >

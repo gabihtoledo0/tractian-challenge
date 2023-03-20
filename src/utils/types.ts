@@ -1,4 +1,4 @@
-export type AssetsProps = {
+export type AssetProps = {
   assignedUserIds?: number[]
   companyId: number
   healthHistory?: {
@@ -21,4 +21,18 @@ export type AssetsProps = {
   }
   status: string
   unitId?: number
+}
+
+export type UserProps = {
+  companyId: number
+  email: string
+  id: number
+  name: string
+  unitId: number
+}
+
+export type UnitProps = {
+  companyId: number
+  id: number
+  name: string
 }
