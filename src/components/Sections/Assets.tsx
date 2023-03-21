@@ -142,8 +142,9 @@ function Assets() {
           bordered
         />
       </Col>
+      <div style={{ margin: "32px" }} />
 
-      <Row>
+      <Row style={{ width: "100%" }}>
         <GraphicsAssets assets={assets} />
       </Row>
     </Row>
