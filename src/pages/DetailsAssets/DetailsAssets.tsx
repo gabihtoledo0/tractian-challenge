@@ -8,7 +8,7 @@ import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
 import { AssetProps, UnitProps } from "../../utils/types"
 import { statusAssets } from "../../utils/translate"
-import Graphics from "../../components/Sections/Graphics"
+import GraphicsDetailsAsset from "../../components/Sections/GraphicsDetailsAsset"
 
 function Assets() {
   const [asset, setAsset] = useState<AssetProps>()
@@ -216,7 +216,7 @@ function Assets() {
         }}
         gutter={[32, 0]}
       >
-        <Graphics asset={asset} />
+        <GraphicsDetailsAsset asset={asset} />
       </Row>
     </>
   )

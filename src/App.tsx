@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home/Home"
 import DetailsAssets from "./pages/DetailsAssets/DetailsAssets"
+import "./App.css"
 
 function AppRouter() {
   return (

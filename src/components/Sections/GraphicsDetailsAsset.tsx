@@ -10,7 +10,11 @@ import HighchartsReact from "highcharts-react-official"
 import { statusAssets } from "../../utils/translate"
 import { AssetProps } from "../../utils/types"
 
-export default function Graphics({ asset }: { asset?: AssetProps }) {
+export default function GraphicsDetailsAsset({
+  asset,
+}: {
+  asset?: AssetProps
+}) {
   const optionsTimeline = {
     chart: {
       type: "timeline",

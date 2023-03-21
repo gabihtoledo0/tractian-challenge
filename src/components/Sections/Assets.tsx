@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import axios, { AxiosResponse } from "axios"
 import { colors } from "../../utils/colors"
 import { AssetProps } from "../../utils/types"
+import GraphicsAssets from "./GraphicsAssets"
 
 function Assets() {
   const navigate = useNavigate()
@@ -141,6 +142,10 @@ function Assets() {
           bordered
         />
       </Col>
+
+      <Row>
+        <GraphicsAssets assets={assets} />
+      </Row>
     </Row>
   )
 }
