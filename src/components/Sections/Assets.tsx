@@ -43,7 +43,6 @@ function Assets() {
         <Tag
           // eslint-disable-next-line no-nested-ternary
           color={scoreColor(score)}
-          key={score}
         >
           <p style={{ fontWeight: "400" }}>{score}</p>
         </Tag>

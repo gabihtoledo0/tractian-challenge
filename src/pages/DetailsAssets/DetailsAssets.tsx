@@ -1,15 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios, { AxiosResponse } from "axios"
 import { Row, Col, Tag, Divider } from "antd"
+import moment from "moment"
 import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
 import { AssetProps, UnitProps } from "../../utils/types"
-import { status } from "../../utils/translate"
+import { statusAssets } from "../../utils/translate"
+import Graphics from "../../components/Sections/Graphics"
 
 function Assets() {
   const [asset, setAsset] = useState<AssetProps>()
   const [unit, setUnit] = useState<UnitProps>()
+  const [company, setCompany] = useState<UnitProps>()
 
   const { id } = useParams()
 
@@ -27,10 +31,25 @@ function Assets() {
       .then((response: AxiosResponse) => {
         setUnit(response.data)
       })
+
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL_COMPANIES}/${asset?.companyId}`)
+      .then((response: AxiosResponse) => {
+        setCompany(response.data)
+      })
   }, [asset])
 
-  const statusColor = () => {
-    
+  const statusColor = (statusAsset?: string) => {
+    if (statusAsset === "inAlert" || statusAsset === "plannedStop") {
+      return "orange"
+    }
+    if (statusAsset === "inDowntime") {
+      return "geekblue"
+    }
+    if (statusAsset === "inOperation") {
+      return "green"
+    }
+    return "red"
   }
 
   return (
@@ -39,7 +58,7 @@ function Assets() {
       <Row
         style={{ backgroundColor: colors.backgroundDefault, padding: "32px" }}
       >
-        <Col span={16} style={{ alignItems: "center" }}>
+        <Col span={14} style={{ alignItems: "center" }}>
           <div
             style={{
               display: "flex",
@@ -61,56 +80,129 @@ function Assets() {
             <div style={{ marginTop: "24px" }} />
 
             <Row>
-              <Col span={4}>
+              <Col span={7}>
                 <p style={{ fontWeight: 400 }}>Empresa</p>
                 <div style={{ marginTop: "8px" }} />
-                <p style={{ color: colors.textPrimary }}>{unit?.name}</p>
-              </Col>
-
-              <Col span={4}>
-                <p style={{ fontWeight: 400 }}>Modelo</p>
-                <div style={{ marginTop: "8px" }} />
-                <p style={{ color: colors.textPrimary }}>{asset?.model}</p>
+                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                  {company?.name}
+                </p>
               </Col>
 
               <Col span={7}>
+                <p style={{ fontWeight: 400 }}>Unidade</p>
+                <div style={{ marginTop: "8px" }} />
+                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                  {unit?.name}
+                </p>
+              </Col>
+
+              <Col span={7}>
+                <p style={{ fontWeight: 400 }}>Modelo</p>
+                <div style={{ marginTop: "8px" }} />
+                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                  {asset?.model}
+                </p>
+              </Col>
+
+              {/* <Col span={6} offset={1}>
                 <p style={{ fontWeight: 400 }}>IDs de usuário atribuídos</p>
                 <div style={{ marginTop: "8px" }} />
                 {asset?.assignedUserIds?.map((userId) => (
                   <Tag key={userId}>{userId}</Tag>
                 ))}
-              </Col>
-
-              <Col span={6}>
-                <p style={{ fontWeight: 400 }}>Sensores</p>
-                <div style={{ marginTop: "8px" }} />
-                {asset?.sensors?.map((sensor) => (
-                  <Tag key={sensor}>{sensor}</Tag>
-                ))}
-              </Col>
+              </Col> */}
             </Row>
             <Divider />
 
             <Row>
-              <Col span={4}>
+              <Col span={7}>
+                <p style={{ fontWeight: 400 }}>Sensores</p>
+                <div style={{ marginTop: "8px" }} />
+                {asset?.sensors?.map((sensor: string) => (
+                  <Tag key={sensor}>{sensor}</Tag>
+                ))}
+              </Col>
+              <Col span={7}>
                 <p style={{ fontWeight: 400 }}>Status</p>
                 <div style={{ marginTop: "8px" }} />
-                <Tag>
-                  {Object.entries(status).find(([key, val]) => {
-                    if (key === asset?.status) {
-                      return val
-                    }
-                    return asset?.status
-                  })}
+                <Tag color={statusColor(asset?.status)} key={asset?.status}>
+                  {asset && statusAssets[asset.status]}
                 </Tag>
               </Col>
+
+              <Col span={7}>
+                <p style={{ fontWeight: 400 }}>Temperatura Máxima</p>
+                <div style={{ marginTop: "8px" }} />
+                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                  {asset?.specifications?.maxTemp}
+                </p>
+              </Col>
             </Row>
+            <Divider />
+
+            <Col>
+              <Row>
+                <Col>
+                  <h3 style={{ fontWeight: 600, fontSize: "26px" }}>
+                    Métricas
+                  </h3>
+                </Col>
+              </Row>
+              <div style={{ marginTop: "20px" }} />
+
+              <Row>
+                <Col span={7}>
+                  <p style={{ fontWeight: 400 }}>Último tempo de atividade</p>
+                  <div style={{ marginTop: "8px" }} />
+                  <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                    {moment(asset?.metrics?.lastUptimeAt).format(
+                      "DD/MM/YYYY HH:mm:ss"
+                    )}
+                  </p>
+                </Col>
+
+                <Col span={7}>
+                  <p style={{ fontWeight: 400 }}>Tempo total de coleta</p>
+                  <div style={{ marginTop: "8px" }} />
+                  <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                    {asset?.metrics?.totalCollectsUptime
+                      ? moment
+                          .utc(asset.metrics.totalCollectsUptime * 1000)
+                          .format("HH:mm:ss")
+                      : "-"}
+                  </p>
+                </Col>
+
+                <Col span={7}>
+                  <p style={{ fontWeight: 400 }}>Tempo de atividade</p>
+                  <div style={{ marginTop: "8px" }} />
+                  <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                    {asset?.metrics?.totalUptime
+                      ? moment
+                          .utc(asset.metrics.totalUptime * 1000)
+                          .format("HH:mm:ss")
+                      : "-"}
+                  </p>
+                </Col>
+              </Row>
+            </Col>
+            <Divider />
           </div>
         </Col>
 
-        <Col span={8} style={{ display: "flex", justifyContent: "center" }}>
+        <Col span={10} style={{ display: "flex", justifyContent: "center" }}>
           <img src={asset?.image} alt="imagem-motor" height={250} />
         </Col>
+      </Row>
+
+      <Row
+        style={{
+          background: `linear-gradient(90deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 35%)`,
+          padding: "56px 32px",
+        }}
+        gutter={[24, 0]}
+      >
+        <Graphics asset={asset} />
       </Row>
     </>
   )
