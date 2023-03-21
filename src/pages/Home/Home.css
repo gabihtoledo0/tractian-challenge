@@ -1,0 +1,7 @@
+.hoverItem:hover {
+  background-color: #58a9ff !important;
+}
+
+.filter-img {
+  filter: brightness(0) invert(1);
+}
