@@ -44,7 +44,7 @@ function Assets() {
       return "orange"
     }
     if (statusAsset === "inDowntime") {
-      return "geekblue"
+      return "cyan"
     }
     if (statusAsset === "inOperation") {
       return "green"
@@ -67,15 +67,28 @@ function Assets() {
               height: "100%",
             }}
           >
-            <h1
-              style={{
-                fontSize: "40px",
-                color: colors.titlePrimary,
-                fontWeight: "600",
-              }}
-            >
-              {asset?.name}
-            </h1>
+            <Row style={{ alignItems: "center" }}>
+              <h1
+                style={{
+                  fontSize: "40px",
+                  color: colors.titlePrimary,
+                  fontWeight: "600",
+                }}
+              >
+                {asset?.name}
+              </h1>
+              <div style={{ marginRight: "24px" }} />
+
+              <Tag
+                style={{
+                  height: "fit-content",
+                }}
+                color={statusColor(asset?.status)}
+                key={asset?.status}
+              >
+                {asset && statusAssets[asset.status]}
+              </Tag>
+            </Row>
 
             <div style={{ marginTop: "24px" }} />
 
@@ -103,18 +116,18 @@ function Assets() {
                   {asset?.model}
                 </p>
               </Col>
-
-              {/* <Col span={6} offset={1}>
-                <p style={{ fontWeight: 400 }}>IDs de usuário atribuídos</p>
-                <div style={{ marginTop: "8px" }} />
-                {asset?.assignedUserIds?.map((userId) => (
-                  <Tag key={userId}>{userId}</Tag>
-                ))}
-              </Col> */}
             </Row>
             <Divider />
 
             <Row>
+              <Col span={7}>
+                <p style={{ fontWeight: 400 }}>Temperatura Máxima</p>
+                <div style={{ marginTop: "8px" }} />
+                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
+                  {asset?.specifications?.maxTemp}
+                </p>
+              </Col>
+
               <Col span={7}>
                 <p style={{ fontWeight: 400 }}>Sensores</p>
                 <div style={{ marginTop: "8px" }} />
@@ -122,20 +135,13 @@ function Assets() {
                   <Tag key={sensor}>{sensor}</Tag>
                 ))}
               </Col>
-              <Col span={7}>
-                <p style={{ fontWeight: 400 }}>Status</p>
-                <div style={{ marginTop: "8px" }} />
-                <Tag color={statusColor(asset?.status)} key={asset?.status}>
-                  {asset && statusAssets[asset.status]}
-                </Tag>
-              </Col>
 
               <Col span={7}>
-                <p style={{ fontWeight: 400 }}>Temperatura Máxima</p>
+                <p style={{ fontWeight: 400 }}>IDs de usuário atribuídos</p>
                 <div style={{ marginTop: "8px" }} />
-                <p style={{ color: colors.textPrimary, fontSize: "14px" }}>
-                  {asset?.specifications?.maxTemp}
-                </p>
+                {asset?.assignedUserIds?.map((userId) => (
+                  <Tag key={userId}>{userId}</Tag>
+                ))}
               </Col>
             </Row>
             <Divider />
@@ -190,8 +196,15 @@ function Assets() {
           </div>
         </Col>
 
-        <Col span={10} style={{ display: "flex", justifyContent: "center" }}>
-          <img src={asset?.image} alt="imagem-motor" height={250} />
+        <Col
+          span={10}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img src={asset?.image} alt="imagem-motor" height={350} />
         </Col>
       </Row>
 
@@ -199,8 +212,9 @@ function Assets() {
         style={{
           background: `linear-gradient(90deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 35%)`,
           padding: "56px 32px",
+          margin: 0,
         }}
-        gutter={[24, 0]}
+        gutter={[32, 0]}
       >
         <Graphics asset={asset} />
       </Row>

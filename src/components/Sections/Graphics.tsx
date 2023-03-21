@@ -14,6 +14,7 @@ export default function Graphics({ asset }: { asset?: AssetProps }) {
   const optionsTimeline = {
     chart: {
       type: "timeline",
+      height: "40%",
     },
     xAxis: {
       visible: false,
@@ -46,7 +47,7 @@ export default function Graphics({ asset }: { asset?: AssetProps }) {
       plotBackgroundImage: null,
       plotBorderWidth: 0,
       plotShadow: false,
-      height: "80%",
+      height: "90%",
     },
 
     title: {
@@ -57,7 +58,7 @@ export default function Graphics({ asset }: { asset?: AssetProps }) {
       startAngle: -90,
       endAngle: 89.9,
       background: null,
-      center: ["50%", "80%"],
+      center: ["50%", "75%"],
       size: "110%",
     },
     yAxis: {
@@ -133,7 +134,7 @@ export default function Graphics({ asset }: { asset?: AssetProps }) {
 
   return (
     <>
-      <Col span={7}>
+      <Col span={8}>
         <Card>
           <HighchartsReact
             isPureConfig
@@ -143,7 +144,7 @@ export default function Graphics({ asset }: { asset?: AssetProps }) {
         </Card>
       </Col>
 
-      <Col span={17}>
+      <Col span={16}>
         <Card>
           <HighchartsReact
             isPureConfig
