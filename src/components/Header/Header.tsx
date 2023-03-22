@@ -17,7 +17,8 @@ export default function HeaderComponent({ children }: HeaderComponentProps) {
         top: 0,
         zIndex: 1,
         width: "100%",
-        background: `linear-gradient(90deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 35%)`,
+        borderBottom: "1px solid rgb(163 163 163)",
+        backgroundColor: colors.backgroundPrimary,
       }}
     >
       <div

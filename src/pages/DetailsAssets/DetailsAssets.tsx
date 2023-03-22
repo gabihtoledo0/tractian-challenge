@@ -6,14 +6,14 @@ import { Row, Col, Tag, Divider } from "antd"
 import moment from "moment"
 import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
-import { AssetProps, UnitProps } from "../../utils/types"
+import { AssetProps, CompanyProps, UnitProps } from "../../utils/types"
 import { statusAssets } from "../../utils/translate"
 import GraphicsDetailsAsset from "../../components/Sections/GraphicsDetailsAsset"
 
 function Assets() {
   const [asset, setAsset] = useState<AssetProps>()
   const [unit, setUnit] = useState<UnitProps>()
-  const [company, setCompany] = useState<UnitProps>()
+  const [company, setCompany] = useState<CompanyProps>()
 
   const { id } = useParams()
 
@@ -210,7 +210,7 @@ function Assets() {
 
       <Row
         style={{
-          background: `linear-gradient(90deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 35%)`,
+          background: colors.backgroundDegrade,
           padding: "56px 32px",
           margin: 0,
         }}
