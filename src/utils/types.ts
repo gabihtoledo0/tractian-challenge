@@ -36,3 +36,8 @@ export type UnitProps = {
   id: number
   name: string
 }
+
+export type CompanyProps = {
+  name: string
+  id: number
+}

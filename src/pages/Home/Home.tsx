@@ -2,6 +2,7 @@ import { Layout, Menu } from "antd"
 import Assets from "../../components/Sections/Assets"
 import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
+import CompaniesUnitsAndUsers from "../../components/Sections/CompaniesUnitsAndUsers"
 import "./Home.css"
 
 function Home() {
@@ -11,7 +12,7 @@ function Home() {
     <Layout>
       <HeaderComponent>
         <Menu
-          style={{ background: "transparent" }}
+          style={{ background: "transparent", borderBottom: 0 }}
           mode="horizontal"
           defaultSelectedKeys={["2"]}
         >
@@ -29,6 +30,7 @@ function Home() {
 
       <Content>
         <Assets />
+        <CompaniesUnitsAndUsers />
       </Content>
 
       <Footer style={{ textAlign: "center" }}>
