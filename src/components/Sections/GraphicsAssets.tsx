@@ -43,7 +43,7 @@ export default function GraphicsAssets({ assets }: { assets?: AssetProps[] }) {
     },
     tooltip: {
       pointFormat:
-        '<span style="color:{point.color}">\u25CF</span> Score: <b>{point.y}</b><br/>',
+        '<span style="color:{point.color}">\u25CF</span> Score: <b>{point.y}%</b><br/>',
     },
     series: assets?.map((asset) => ({
       name: asset.name,
@@ -70,7 +70,7 @@ export default function GraphicsAssets({ assets }: { assets?: AssetProps[] }) {
       size: "110%",
     },
     tooltip: {
-      pointFormat: "{series.name}: <b>{point.y}</b>",
+      pointFormat: "{series.name}: <b>{point.y}%</b>",
     },
     plotOptions: {
       pie: {
@@ -80,7 +80,7 @@ export default function GraphicsAssets({ assets }: { assets?: AssetProps[] }) {
           enabled: true,
           distance: 0,
           format:
-            "<b style='font-size: 14px;word-wrap: break-word'>{point.name}</b>: <p style='font-size:11px'>Total: {point.y}<p>",
+            "<b style='font-size: 14px;word-wrap: break-word'>{point.name}</b>: <p style='font-size:11px'>Total: {point.y}%<p>",
         },
         size: "60%",
       },
@@ -95,19 +95,19 @@ export default function GraphicsAssets({ assets }: { assets?: AssetProps[] }) {
             y: counts.inAlert,
           },
           {
-            name: "Em tempo de inatividade",
+            name: "Em Parada",
             y: counts.inDowntime,
           },
           {
-            name: "Em operação",
+            name: "Em Operação",
             y: counts.inOperation,
           },
           {
-            name: "Parada não planejada",
+            name: "Parada Não Planejada",
             y: counts.unplannedStop,
           },
           {
-            name: "Parada planejada",
+            name: "Parada Planejada",
             y: counts.plannedStop,
           },
         ],

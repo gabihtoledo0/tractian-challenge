@@ -5,13 +5,14 @@ import { Row, Col, Button, Table, Tag, Space } from "antd"
 import { IoBuild } from "react-icons/io5"
 import { AiFillAlert } from "react-icons/ai"
 import { BsFillSignStopFill } from "react-icons/bs"
-import { RxCountdownTimer } from "react-icons/rx"
 import type { ColumnsType } from "antd/es/table"
 import { useNavigate } from "react-router-dom"
 import axios, { AxiosResponse } from "axios"
 import { colors } from "../../utils/colors"
 import { AssetProps } from "../../utils/types"
+import { statusAssets } from "../../utils/translate"
 import GraphicsAssets from "./GraphicsAssets"
+import Error from "../Error/Error"
 
 function Assets() {
   const navigate = useNavigate()
@@ -55,12 +56,10 @@ function Assets() {
       key: "status",
       render: (status: string) => (
         <Space>
-          <p>{status}</p>
+          <p>{statusAssets[status]}</p>
           <div />
           {status === "inAlert" ? (
             <AiFillAlert size={20} color="orange" />
-          ) : status === "inDowntime" ? (
-            <RxCountdownTimer size={20} />
           ) : status === "inOperation" ? (
             <IoBuild size={20} color="#FFD700	" />
           ) : (
@@ -89,64 +88,73 @@ function Assets() {
   ]
 
   const [assets, setAssets] = useState<AssetProps[]>()
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL_ASSETS}`)
       .then((response: AxiosResponse) => {
         setAssets(response.data)
+        setLoading(false)
+      })
+      .catch(() => {
+        setLoading(false)
       })
   }, [])
 
   return (
     <Row style={{ backgroundColor: colors.backgroundDefault, padding: "32px" }}>
-      <Col span={8} style={{ alignItems: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            height: "100%",
-          }}
-        >
-          <h1
-            style={{
-              fontSize: "40px",
-              color: colors.titlePrimary,
-              fontWeight: "600",
-            }}
-          >
-            Ativos
-          </h1>
-          <h2
-            style={{
-              fontSize: "24px",
-              color: colors.textPrimary,
-            }}
-          >
-            Veja com mais detalhes as características dos ativos
-          </h2>
-        </div>
-      </Col>
+      <Error loading={loading} data={assets}>
+        <>
+          <Col span={8} style={{ alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
+              <h1
+                style={{
+                  fontSize: "40px",
+                  color: colors.titlePrimary,
+                  fontWeight: "600",
+                }}
+              >
+                Ativos
+              </h1>
+              <h2
+                style={{
+                  fontSize: "24px",
+                  color: colors.textPrimary,
+                }}
+              >
+                Veja com mais detalhes as características dos ativos
+              </h2>
+            </div>
+          </Col>
 
-      <Col span={16} style={{ display: "flex", justifyContent: "center" }}>
-        <Table
-          columns={columns}
-          dataSource={assets}
-          loading={assets === undefined}
-          pagination={{
-            defaultCurrent: 1,
-            total: assets?.length,
-            defaultPageSize: 4,
-          }}
-          bordered
-        />
-      </Col>
-      <div style={{ margin: "32px" }} />
+          <Col span={16} style={{ display: "flex", justifyContent: "center" }}>
+            <Table
+              columns={columns}
+              dataSource={assets}
+              loading={assets === undefined}
+              pagination={{
+                defaultCurrent: 1,
+                total: assets?.length,
+                defaultPageSize: 4,
+              }}
+              bordered
+            />
+          </Col>
+          <div style={{ margin: "32px" }} />
 
-      <Row style={{ width: "100%" }}>
-        <GraphicsAssets assets={assets} />
-      </Row>
+          <Row style={{ width: "100%" }}>
+            <GraphicsAssets assets={assets} />
+          </Row>
+        </>
+      </Error>
     </Row>
   )
 }

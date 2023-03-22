@@ -31,19 +31,16 @@ export default function GraphicsDetailsAsset({
     },
     series: [
       {
-        dataLabels: {
-          connectorColor: "silver",
-          connectorWidth: 2,
-        },
-        data: asset?.healthHistory
-          ? asset?.healthHistory.map((history) => ({
-              name: history.status && statusAssets[history.status],
-              label: moment(history.timestamp).format("DD/MM/YYYY HH:mm:ss"),
-            }))
-          : [],
+        data:
+          asset?.healthHistory &&
+          asset?.healthHistory.map((history) => ({
+            name: moment.utc(history.timestamp).format("DD/MM/YYYY"),
+            label: history.status && statusAssets[history.status],
+          })),
       },
     ],
   }
+
   const optionsGauge = {
     chart: {
       type: "gauge",
@@ -106,7 +103,7 @@ export default function GraphicsDetailsAsset({
         name: "Score",
         data: [asset?.healthscore],
         dataLabels: {
-          format: "{y}",
+          format: "{y}%",
           borderWidth: 0,
           color:
             (Highcharts.defaultOptions.title &&
