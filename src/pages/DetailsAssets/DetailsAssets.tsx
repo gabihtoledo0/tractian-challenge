@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import axios, { AxiosResponse } from "axios"
-import { Row, Col, Tag, Divider } from "antd"
+import { MdArrowBack } from "react-icons/md"
+import { Row, Col, Tag, Divider, Button } from "antd"
 import moment from "moment"
 import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
@@ -18,6 +19,7 @@ function Assets() {
   const [loading, setLoading] = useState<boolean>(true)
 
   const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -75,6 +77,18 @@ function Assets() {
             }}
           >
             <Col span={14} style={{ alignItems: "center" }}>
+              <Button
+                style={{
+                  display: "flex",
+                  backgroundColor: colors.buttonPrimary,
+                }}
+                type="primary"
+                onClick={() => navigate(-1)}
+                icon={<MdArrowBack size={24} style={{ marginRight: "8px" }} />}
+              >
+                Voltar
+              </Button>
+
               <div
                 style={{
                   display: "flex",
