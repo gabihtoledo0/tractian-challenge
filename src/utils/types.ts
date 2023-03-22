@@ -41,3 +41,17 @@ export type CompanyProps = {
   name: string
   id: number
 }
+
+export type WorkOrderProps = {
+  assetId: number
+  assignedUserIds?: number[]
+  checklist: {
+    completed: boolean
+    task: string
+  }[]
+  description: string
+  id?: number
+  priority: string
+  status: string
+  title: string
+}

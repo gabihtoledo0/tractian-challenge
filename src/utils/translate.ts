@@ -3,9 +3,19 @@ type Map = {
 }
 
 export const statusAssets: Map = {
-  inAlert: "Em alerta",
-  inDowntime: "Em tempo de inatividade",
-  inOperation: "Em operação",
-  unplannedStop: "Parada não planejada",
-  plannedStop: "Parada planejada",
+  inAlert: "Em Alerta",
+  inDowntime: "Em Tempo de Inatividade",
+  inOperation: "Em Operação",
+  unplannedStop: "Parada Não Planejada",
+  plannedStop: "Parada Planejada",
+}
+
+export const statusWorkOrder: Map = {
+  completed: "Completo",
+  "in progress": "Em progresso",
+}
+
+export const priorityWorkOrder: Map = {
+  high: "Alta",
+  low: "Baixa",
 }
