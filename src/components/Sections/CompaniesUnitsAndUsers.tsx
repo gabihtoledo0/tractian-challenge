@@ -165,8 +165,6 @@ export default function CompaniesUnitsAndUsers() {
               Empresas
             </h3>
           </Col>
-
-          
         </Row>
         <div style={{ marginTop: "20px" }} />
 
