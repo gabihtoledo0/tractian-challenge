@@ -4,9 +4,10 @@ import { colors } from "../../utils/colors"
 import HeaderComponent from "../../components/Header/Header"
 import CompaniesUnitsAndUsers from "../../components/Sections/CompaniesUnitsAndUsers"
 import "./Home.css"
+import WorkOrders from "../../components/Sections/WorkOrders"
 
 function Home() {
-  const { Content, Footer } = Layout
+  const { Content } = Layout
 
   return (
     <Layout>
@@ -31,11 +32,8 @@ function Home() {
       <Content>
         <Assets />
         <CompaniesUnitsAndUsers />
+        <WorkOrders />
       </Content>
-
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2023 Created by Ant UED
-      </Footer>
     </Layout>
   )
 }

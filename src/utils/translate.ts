@@ -9,3 +9,13 @@ export const statusAssets: Map = {
   unplannedStop: "Parada Não Planejada",
   plannedStop: "Parada Planejada",
 }
+
+export const statusWorkOrder: Map = {
+  completed: "Completo",
+  "in progress": "Em progresso",
+}
+
+export const priorityWorkOrder: Map = {
+  high: "Alta",
+  low: "Baixa",
+}
